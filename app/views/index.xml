@@ -1,0 +1,30 @@
+<Alloy>
+	<Window id="win">
+
+		<View class="container">
+
+			<View layout="horizontal" height="35">
+				<Label>major:</Label>
+				<TextField id="major" value="1"></TextField>
+			</View>
+			<View layout="horizontal" height="35">
+				<Label>minor:</Label>
+				<TextField id="minor" value="2"></TextField>
+			</View>
+
+			<View layout="horizontal" height="35">
+				<Label>Advertising</Label>
+				<Switch id="advertisingSwitch" value="false" onChange="toggleAdvertising"/>
+			</View>
+		
+			<View layout="horizontal" height="35">
+				<Label>Ranging</Label>
+				<Switch id="rangingSwitch" value="false" onChange="toggleRanging"/>
+			</View>
+		
+			<ScrollView id="trace"/>
+		
+		</View>
+
+	</Window>
+</Alloy>

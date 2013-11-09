@@ -1,0 +1,22 @@
+".container": {
+	top: 50,
+	backgroundColor:"white",
+	layout: "vertical"
+},
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#000",
+	right: 10
+}
+"TextField": {
+	width: 100,
+	borderWidth: 1,
+	borderColor: "#999"
+}
+
+"#trace": {
+	width: 320,
+	height: 400,
+	layout: "vertical"
+}
