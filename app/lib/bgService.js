@@ -2,8 +2,13 @@ var TiBeacons = require('org.beuckman.tibeacons');
 Ti.API.info("module is => " + TiBeacons);
 
 TiBeacons.addEventListener("beaconRanges", function(event) {
-
-    notify("Found a beacon in background! " + event.count);
+    
+    for (var i in event.beacons) {
+        var b = event.beacons[i];
+        if (b.proximity == "immediate") {
+            notify("Found a beacon in immediate proximity!");
+        }
+    }
 
 });
 

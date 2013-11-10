@@ -7,7 +7,7 @@ TiBeacons.addEventListener("beaconRanges", function(event) {
         text : JSON.stringify(event)
     }));
         
-    alert(TiBeacons.detectedBeacons);
+//    alert(event.beacons);
 
 });
 TiBeacons.addEventListener("advertisingStatus", function(event) {
