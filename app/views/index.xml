@@ -2,6 +2,8 @@
 	<Window id="win">
 
 		<View class="container">
+			
+			<View height="50"/>
 
 			<View layout="horizontal" height="35">
 				<Label>major:</Label>

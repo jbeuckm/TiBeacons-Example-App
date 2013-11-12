@@ -1,5 +1,4 @@
 ".container": {
-	top: 50,
 	backgroundColor:"white",
 	layout: "vertical"
 },
@@ -7,6 +6,7 @@
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000",
+	left: 10,
 	right: 10
 }
 "TextField": {
