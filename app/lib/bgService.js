@@ -6,10 +6,10 @@ TiBeacons.addEventListener("beaconRanges", function(event) {
         var b = event.beacons[i];
         switch (b.proximity) {
             case "immediate":
-                notify("Found "+beacon.major+"/"+beacon.minor+" in immediate proximity!");
+                notify("Found "+b.major+"/"+b.minor+" in immediate proximity!");
                 break;
             case "near":
-                notify("Found "+beacon.major+"/"+beacon.minor+" in near proximity!");
+                notify("Found "+b.major+"/"+b.minor+" in near proximity!");
                 break;
         }
     }
