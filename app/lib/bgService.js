@@ -33,3 +33,7 @@ TiBeacons.startRangingForBeacons({
     identifier : "TiBeacon Test"
 });
 
+
+Ti.App.currentService.addEventListener("stop", function() {
+	TiBeacons.stopRangingForBeacons();
+});
