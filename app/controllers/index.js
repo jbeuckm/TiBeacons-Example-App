@@ -1,22 +1,17 @@
 var TiBeacons = require('org.beuckman.tibeacons');
 Ti.API.info("module is => " + TiBeacons);
 
-TiBeacons.addEventListener("beaconRanges", function(event) {
+
+function addEventToScroller(event) {
     Ti.API.info(event);
     $.trace.add(Ti.UI.createLabel({
         text : JSON.stringify(event)
     }));
-        
-//    alert(event.beacons);
+}
 
-});
-TiBeacons.addEventListener("advertisingStatus", function(event) {
-    Ti.API.info(event);
-    $.trace.add(Ti.UI.createLabel({
-        text : JSON.stringify(event)
-    }));
-});
-
+TiBeacons.addEventListener("advertisingStatus", addEventToScroller);
+TiBeacons.addEventListener("beaconRanges", addEventToScroller);
+TiBeacons.addEventListener("beaconProximity", alert);
 
 function toggleAdvertising() {
 
