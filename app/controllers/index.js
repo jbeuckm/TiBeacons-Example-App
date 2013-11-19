@@ -43,10 +43,13 @@ function toggleRanging() {
         });
         TiBeacons.startRangingForBeacons({
             uuid : "00000000-0000-0000-0000-000000000001",
+            major: 1,
             identifier : "Test Region 2"
         });
         TiBeacons.startRangingForBeacons({
             uuid : "00000000-0000-0000-0000-000000000002",
+            major: 1,
+            minor: 2,
             identifier : "Test Region 3"
         });
     } else {
