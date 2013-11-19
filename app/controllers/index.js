@@ -23,8 +23,13 @@ function toggleAdvertising() {
             major: Math.abs(parseInt($.major.value)),
             minor: Math.abs(parseInt($.minor.value))
         });
+        
+        Ti.App.idleTimerDisabled = true;
+        
     } else {
         TiBeacons.stopAdvertisingBeacon();
+        
+        Ti.App.idleTimerDisabled = false;        
     }
 
 }
