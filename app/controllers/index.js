@@ -52,6 +52,12 @@ function toggleRanging() {
             minor: 2,
             identifier : "Test Region 3"
         });
+
+        TiBeacons.startRangingForBeacons({
+            uuid : "B9407F30-F5F8-466E-AFF9-25556B57FE6D",
+            identifier : "Estimote"
+        });
+
     } else {
         TiBeacons.stopRangingForBeacons();
     }
