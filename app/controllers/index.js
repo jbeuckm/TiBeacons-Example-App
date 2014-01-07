@@ -9,9 +9,22 @@ function addEventToScroller(event) {
     }));
 }
 
-TiBeacons.addEventListener("advertisingStatus", addEventToScroller);
-TiBeacons.addEventListener("beaconRanges", addEventToScroller);
-TiBeacons.addEventListener("beaconProximity", alert);
+function addListeners() {
+	TiBeacons.addEventListener("advertisingStatus", addEventToScroller);
+	TiBeacons.addEventListener("beaconRanges", addEventToScroller);
+	TiBeacons.addEventListener("beaconProximity", alert);
+}
+function removeListeners() {
+	TiBeacons.removeEventListener("advertisingStatus", addEventToScroller);
+	TiBeacons.removeEventListener("beaconRanges", addEventToScroller);
+	TiBeacons.removeEventListener("beaconProximity", alert);
+}
+
+Ti.App.addEventListener("pause", removeListeners);
+Ti.App.addEventListener("resumed", addListeners);
+
+addListeners();
+
 
 function toggleAdvertising() {
 
