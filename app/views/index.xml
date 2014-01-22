@@ -33,11 +33,7 @@
 		
 			<TableView dataCollection="iBeacon">
 				
-				<TableViewRow>
-					<Label text="{id}"></Label>
-					<Label text="{identifier}"></Label>
-					<Label text="{proximity}"></Label>
-				</TableViewRow>
+				<Require src="beaconRow"/>
 			
 			</TableView>
 		

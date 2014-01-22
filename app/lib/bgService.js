@@ -1,49 +1,44 @@
 var TiBeacons = require('org.beuckman.tibeacons');
 
-TiBeacons.autoRange = false;
+TiBeacons.disableAutoRanging();
+TiBeacons.stopMonitoringAllRegions();
+TiBeacons.stopRangingForAllBeacons();
 
-var notifications = [];
-var notificationCount = 0;
-
-function notify(message, userInfo) {
-    notifications[notificationCount++] = Ti.App.iOS.scheduleLocalNotification({
+function notify(message, e) {
+    Ti.App.iOS.scheduleLocalNotification({
         alertBody : message,
         alertAction : "OK",
-        userInfo : userInfo,
+        userInfo : { 
+        	example: "e.identifier"
+        },
         //    sound:"whoosh.mp3",
         date : new Date(new Date().getTime() + 5) // 5 milliseconds after being asked
     });
 }
 
 
-
 function enterRegion(e) {
-	notify("enterRegion", e);
+	notify("enterRegion: "+e.identifier, e);
 	Ti.API.info(e);
 }
 function exitRegion(e) {
-	notify("exitRegion", e);
+	notify("exitRegion: "+e.identifier, e);
 	Ti.API.info(e);
 }
 
-function handleRanges(e) {
-//	Ti.API.info(e);
-}
 
-Ti.App.currentService.addEventListener("stop", function() {
+function stopService() {
 	
-//	TiBeacons.removeEventListener("beaconRanges", handleRanges);
 	TiBeacons.removeEventListener("enteredRegion", enterRegion);
 	TiBeacons.removeEventListener("exitedRegion", exitRegion);
 
-	TiBeacons.stopRangingForAllBeacons();
-	TiBeacons.stopMonitoringAllRegions();
-});
+//	TiBeacons.stopMonitoringAllRegions();
+}
+Ti.App.currentService.addEventListener("stop", stopService);
 
 
-//TiBeacons.addEventListener("enteredRegion", enterRegion);
 TiBeacons.addEventListener("exitedRegion", exitRegion);
-TiBeacons.addEventListener("beaconRanges", handleRanges);
+TiBeacons.addEventListener("enteredRegion", enterRegion);
 
 TiBeacons.startMonitoringForRegion({
     uuid : "00000000-0000-0000-0000-000000000000",

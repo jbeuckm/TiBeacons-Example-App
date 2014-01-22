@@ -1,25 +1,55 @@
 var TiBeacons = require('org.beuckman.tibeacons');
 Ti.API.info("module is => " + TiBeacons);
 
-TiBeacons.autoRange = true;
+TiBeacons.enableAutoRanging();
+Alloy.Collections.iBeacon.fetch();
 
 
 function enterRegion(e) {
-	
-	var newModel = Alloy.createModel("iBeacon", {id:e.uuid+"-"+e.major+"-"+e.minor});
-	newModel.save();
-	Alloy.Collections.iBeacon.add(newModel);
-	
 	Ti.API.info(e);
+	var model = ensureModel(e);
 }
 function exitRegion(e) {
 	Ti.API.info(e);
+
+	var model = ensureModel(e);
+	Alloy.Collections.iBeacon.remove(model);
 }
 function updateRanges(e) {
-	Ti.API.info(e);
+	Ti.API.trace(e);
 }
 function handleProximity(e) {
 	Ti.API.info(e);
+	
+	var model = ensureModel(e);
+	
+	model.set("proximity", e.proximity);
+}
+
+function ensureModel(e) {
+	
+	var atts = {
+		id: e.uuid+" "+e.major+" "+e.minor,
+		identifier: e.identifier,
+		uuid: e.uuid,
+		major: parseInt(e.major),
+		minor: parseInt(e.minor),
+		proximity: e.proximity
+	};
+	
+	var model;
+	var models = Alloy.Collections.iBeacon.where({id:atts.id});
+	
+	if (models.length == 0) {
+		model = Alloy.createModel("iBeacon", atts);
+		Alloy.Collections.iBeacon.add(model);
+	}
+	else {
+		model = models[0];
+Ti.API.info("found model "+models[0].get("identifier"));	
+	}
+
+	return model;
 }
 
 function addListeners() {
@@ -27,15 +57,12 @@ function addListeners() {
 	TiBeacons.addEventListener("enteredRegion", enterRegion);
 	TiBeacons.addEventListener("exitedRegion", exitRegion);
 
-//	TiBeacons.addEventListener("beaconRanges", updateRanges);
+	TiBeacons.addEventListener("beaconRanges", updateRanges);
 	TiBeacons.addEventListener("beaconProximity", handleProximity);
 	
 }
 function removeListeners() {
 	
-	TiBeacons.stopMonitoringAllRegions();
-	$.monitoringSwitch.value = false;
-
 	TiBeacons.removeEventListener("enteredRegion", enterRegion);
 	TiBeacons.removeEventListener("exitedRegion", exitRegion);
 
@@ -43,10 +70,23 @@ function removeListeners() {
 	TiBeacons.removeEventListener("beaconProximity", handleProximity);
 }
 
-Ti.App.addEventListener("pause", removeListeners);
-Ti.App.addEventListener("resumed", addListeners);
+function pauseApp() {
+//	TiBeacons.stopMonitoringAllRegions();
+//	TiBeacons.stopRangingForAllBeacons();
+	$.monitoringSwitch.value = false;
+
+	removeListeners();
+}
+function appResumed(e) {
+	addListeners();
+}
+Ti.App.addEventListener("pause", pauseApp);
+Ti.App.addEventListener("resumed", appResumed);
 
 addListeners();
+
+
+
 
 
 function toggleAdvertising() {

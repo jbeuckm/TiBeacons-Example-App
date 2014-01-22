@@ -5,12 +5,15 @@ exports.definition = {
 		columns: {
 			id: "TEXT",
 			identifier: "TEXT",
+			uuid: "TEXT",
+			major: "INTEGER",
+			minor: "INTEGER",
 			proximity: "TEXT"
 		},
 		defaults: {
 		},
 		adapter: {
-			type: "properties",
+			type: "sql",
 			collection_name: "iBeacons"
 		}
 	},		
