@@ -1,0 +1,14 @@
+<Alloy>
+
+	<TableViewRow>
+		<View>
+			<Label text="{identifier}"></Label>
+			<Label text="{major}"></Label>
+			<Label>--</Label>
+			<Label text="{minor}"></Label>
+		</View>
+
+		<Label class="proximityLabel" text="{proximity}"></Label>
+	</TableViewRow>
+
+</Alloy>

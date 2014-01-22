@@ -1,0 +1,14 @@
+TableViewRow: {
+	width: Ti.UI.FILL
+}
+View: {
+	height: 30,
+	layout: "horizontal"
+}
+Label: {
+	left: 5
+}
+".proximityLabel": {
+	left: null,
+	right: 5
+}
