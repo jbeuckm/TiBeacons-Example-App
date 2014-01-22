@@ -6,11 +6,11 @@ Alloy.Collections.iBeacon.fetch();
 
 
 function enterRegion(e) {
-	Ti.API.info(e);
+	alert(e);
 	var model = ensureModel(e);
 }
 function exitRegion(e) {
-	Ti.API.info(e);
+	alert(e);
 
 	var model = ensureModel(e);
 	Alloy.Collections.iBeacon.remove(model);
@@ -71,8 +71,8 @@ function removeListeners() {
 }
 
 function pauseApp() {
-//	TiBeacons.stopMonitoringAllRegions();
-//	TiBeacons.stopRangingForAllBeacons();
+	TiBeacons.stopMonitoringAllRegions();
+	TiBeacons.stopRangingForAllBeacons();
 	$.monitoringSwitch.value = false;
 
 	removeListeners();
