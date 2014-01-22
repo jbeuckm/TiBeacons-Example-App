@@ -1,23 +1,46 @@
 var TiBeacons = require('org.beuckman.tibeacons');
 Ti.API.info("module is => " + TiBeacons);
 
+TiBeacons.autoRange = true;
 
-function addEventToScroller(event) {
-    Ti.API.info(event);
-    $.trace.add(Ti.UI.createLabel({
-        text : JSON.stringify(event)
-    }));
+
+function enterRegion(e) {
+	
+	var newModel = Alloy.createModel("iBeacon", {id:e.uuid+"-"+e.major+"-"+e.minor});
+	newModel.save();
+	Alloy.Collections.iBeacon.add(newModel);
+	
+	Ti.API.info(e);
+}
+function exitRegion(e) {
+	Ti.API.info(e);
+}
+function updateRanges(e) {
+	Ti.API.info(e);
+}
+function handleProximity(e) {
+	Ti.API.info(e);
 }
 
 function addListeners() {
-	TiBeacons.addEventListener("advertisingStatus", addEventToScroller);
-	TiBeacons.addEventListener("beaconRanges", addEventToScroller);
-	TiBeacons.addEventListener("beaconProximity", alert);
+
+	TiBeacons.addEventListener("enteredRegion", enterRegion);
+	TiBeacons.addEventListener("exitedRegion", exitRegion);
+
+//	TiBeacons.addEventListener("beaconRanges", updateRanges);
+	TiBeacons.addEventListener("beaconProximity", handleProximity);
+	
 }
 function removeListeners() {
-	TiBeacons.removeEventListener("advertisingStatus", addEventToScroller);
-	TiBeacons.removeEventListener("beaconRanges", addEventToScroller);
-	TiBeacons.removeEventListener("beaconProximity", alert);
+	
+	TiBeacons.stopMonitoringAllRegions();
+	$.monitoringSwitch.value = false;
+
+	TiBeacons.removeEventListener("enteredRegion", enterRegion);
+	TiBeacons.removeEventListener("exitedRegion", exitRegion);
+
+	TiBeacons.removeEventListener("beaconRanges", updateRanges);
+	TiBeacons.removeEventListener("beaconProximity", handleProximity);
 }
 
 Ti.App.addEventListener("pause", removeListeners);
@@ -47,44 +70,38 @@ function toggleAdvertising() {
 
 }
 
-function toggleRanging() {
+function toggleMonitoring() {
 
-    if ($.rangingSwitch.value) {
-        TiBeacons.startRangingForBeacons({
+    if ($.monitoringSwitch.value) {
+        TiBeacons.startMonitoringForRegion({
             uuid : "00000000-0000-0000-0000-000000000000",
             identifier : "Test Region 1"
         });
-        TiBeacons.startRangingForBeacons({
+        TiBeacons.startMonitoringForRegion({
             uuid : "00000000-0000-0000-0000-000000000001",
             major: 1,
             identifier : "Test Region 2"
         });
-        TiBeacons.startRangingForBeacons({
+        TiBeacons.startMonitoringForRegion({
             uuid : "00000000-0000-0000-0000-000000000002",
             major: 1,
             minor: 2,
             identifier : "Test Region 3"
         });
 
-        TiBeacons.startRangingForBeacons({
+        TiBeacons.startMonitoringForRegion({
             uuid : "B9407F30-F5F8-466E-AFF9-25556B57FE6D",
             identifier : "Estimote"
         });
 
     } else {
-        TiBeacons.stopRangingForBeacons();
+		TiBeacons.stopMonitoringAllRegions();
     }
 }
-
-
-
-$.win.open();
-
-
-
 
 var service = Ti.App.iOS.registerBackgroundService({
     url: "bgService.js"
 });
-    
-    
+
+
+$.win.open();

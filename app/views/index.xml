@@ -1,4 +1,7 @@
 <Alloy>
+	
+	<Collection src="iBeacon"/>
+	
 	<Window id="win">
 
 		<View class="container">
@@ -24,11 +27,19 @@
 			</View>
 		
 			<View layout="horizontal" height="35">
-				<Label>Ranging</Label>
-				<Switch id="rangingSwitch" value="false" onChange="toggleRanging"/>
+				<Label>Monitoring</Label>
+				<Switch id="monitoringSwitch" value="false" onChange="toggleMonitoring"/>
 			</View>
 		
-			<ScrollView id="trace"/>
+			<TableView dataCollection="iBeacon">
+				
+				<TableViewRow>
+					<Label text="{id}"></Label>
+					<Label text="{identifier}"></Label>
+					<Label text="{proximity}"></Label>
+				</TableViewRow>
+			
+			</TableView>
 		
 		</View>
 
