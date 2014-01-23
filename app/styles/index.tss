@@ -1,7 +1,17 @@
+
 ".container": {
 	backgroundColor:"white",
 	layout: "vertical"
-},
+}
+
+"#advertisingSection": {
+	top: 30,
+	height: Ti.UI.SIZE,
+	backgroundColor: "rgba(0,0,0,.1)",
+	layout: "vertical",
+	
+}
+
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,

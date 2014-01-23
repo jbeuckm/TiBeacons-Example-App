@@ -6,25 +6,26 @@
 
 		<View class="container">
 			
-			<View height="30"/>
-
-			<View class="fieldContainer" height="45">
-				<Label>region:</Label>
-				<TextField id="uuid" left="10" value="00000000-0000-0000-0000-000000000000"></TextField>
+			<View id="advertisingSection">
+				<View class="fieldContainer">
+					<Label>Advertising</Label>
+					<Switch id="advertisingSwitch" value="false" onChange="toggleAdvertising"/>
+				</View>
+	
+				<View class="fieldContainer" height="45">
+					<Label>region:</Label>
+					<TextField id="uuid" left="10" value="00000000-0000-0000-0000-000000000000"></TextField>
+				</View>
+				<View class="fieldContainer">
+					<Label>major:</Label>
+					<TextField id="major" value="1"></TextField>
+				</View>
+				<View class="fieldContainer">
+					<Label>minor:</Label>
+					<TextField id="minor" value="2"></TextField>
+				</View>
 			</View>
-			<View class="fieldContainer">
-				<Label>major:</Label>
-				<TextField id="major" value="1"></TextField>
-			</View>
-			<View class="fieldContainer">
-				<Label>minor:</Label>
-				<TextField id="minor" value="2"></TextField>
-			</View>
-
-			<View class="fieldContainer">
-				<Label>Advertising</Label>
-				<Switch id="advertisingSwitch" value="false" onChange="toggleAdvertising"/>
-			</View>
+			
 		
 			<View layout="horizontal" height="35">
 				<Label>Monitoring</Label>
