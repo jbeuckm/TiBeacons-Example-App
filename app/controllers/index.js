@@ -1,7 +1,6 @@
 var TiBeacons = require('org.beuckman.tibeacons');
 Ti.API.info("module is => " + TiBeacons);
 
-TiBeacons.enableAutoRanging();
 Alloy.Collections.iBeacon.fetch();
 
 
@@ -70,18 +69,6 @@ function removeListeners() {
 	TiBeacons.removeEventListener("beaconProximity", handleProximity);
 }
 
-function pauseApp() {
-	TiBeacons.stopMonitoringAllRegions();
-	TiBeacons.stopRangingForAllBeacons();
-	$.monitoringSwitch.value = false;
-
-	removeListeners();
-}
-function appResumed(e) {
-	addListeners();
-}
-Ti.App.addEventListener("pause", pauseApp);
-Ti.App.addEventListener("resumed", appResumed);
 
 addListeners();
 
@@ -138,10 +125,6 @@ function toggleMonitoring() {
 		TiBeacons.stopMonitoringAllRegions();
     }
 }
-
-var service = Ti.App.iOS.registerBackgroundService({
-    url: "bgService.js"
-});
 
 
 $.win.open();
