@@ -1,4 +1,11 @@
 eclipse.preferences.version=1
+iosLaunchConfigurationAttributes/ATTR_MINIFY=true
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=TiBeacons-Example-App
+iosLaunchConfigurationAttributes/appid=org.beuckman.tibeacons.test
+iosLaunchConfigurationAttributes/certificate=Joseph Beuckman (9JVJUHU9C3)
+iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/sdk_version=7.1
+iosLaunchConfigurationAttributes/uuid=8B1C430B-9A0E-43BD-8A55-DD1D338F6292
 provisioning_profiles/development/02011178-0DA3-427C-B95E-DFF81C47A53A/appid=org.beuckman.tibeacons.test
 provisioning_profiles/development/02011178-0DA3-427C-B95E-DFF81C47A53A/name=iOS Team Provisioning Profile\: org.beuckman.tibeacons.test
 provisioning_profiles/development/02011178-0DA3-427C-B95E-DFF81C47A53A/uuid=02011178-0DA3-427C-B95E-DFF81C47A53A

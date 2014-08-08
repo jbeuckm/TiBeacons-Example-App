@@ -1,5 +1,10 @@
 var TiBeacons = require('org.beuckman.tibeacons');
-Ti.API.info("module is => " + TiBeacons);
+
+TiBeacons.addEventListener('bluetoothStatus', function(e){
+    Ti.API.info(e);
+});
+TiBeacons.requestBluetoothStatus();
+
 
 Alloy.Collections.iBeacon.fetch();
 
@@ -7,12 +12,16 @@ Alloy.Collections.iBeacon.fetch();
 function enterRegion(e) {
 	alert(e);
 	var model = ensureModel(e);
+	
+	TiBeacons.startRangingForBeacons(e);
 }
 function exitRegion(e) {
 	alert(e);
 
 	var model = ensureModel(e);
 	Alloy.Collections.iBeacon.remove(model);
+
+    TiBeacons.stopRangingForBeacons(e);
 }
 function updateRanges(e) {
 	Ti.API.trace(e);
@@ -51,29 +60,13 @@ Ti.API.info("found model "+models[0].get("identifier"));
 	return model;
 }
 
-function addListeners() {
 
-	TiBeacons.addEventListener("enteredRegion", enterRegion);
-	TiBeacons.addEventListener("exitedRegion", exitRegion);
+TiBeacons.addEventListener("enteredRegion", enterRegion);
+TiBeacons.addEventListener("exitedRegion", exitRegion);
 
-	TiBeacons.addEventListener("beaconRanges", updateRanges);
-	TiBeacons.addEventListener("beaconProximity", handleProximity);
+TiBeacons.addEventListener("beaconRanges", updateRanges);
+TiBeacons.addEventListener("beaconProximity", handleProximity);
 	
-}
-function removeListeners() {
-	
-	TiBeacons.removeEventListener("enteredRegion", enterRegion);
-	TiBeacons.removeEventListener("exitedRegion", exitRegion);
-
-	TiBeacons.removeEventListener("beaconRanges", updateRanges);
-	TiBeacons.removeEventListener("beaconProximity", handleProximity);
-}
-
-
-addListeners();
-
-
-
 
 
 function toggleAdvertising() {
@@ -122,6 +115,7 @@ function toggleMonitoring() {
         });
 
     } else {
+
 		TiBeacons.stopMonitoringAllRegions();
     }
 }
